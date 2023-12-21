@@ -6,7 +6,7 @@ const Navbar = () => {
         <li><Link className='font-semibold text-white' to='/'>Home</Link></li>
         <li><Link className='font-semibold text-white' to='/'>Todo List</Link></li>
         <li><Link className='font-semibold text-white' to='/'>Previous Todo</Link></li>
-        <li><Link className='font-semibold text-white' to='/'>Login</Link></li>
+        <li><Link className='font-semibold text-white' to='/signin'>Login</Link></li>
     </>
     return (
         <div className="navbar fixed z-10 bg-opacity-30 bg-black text-white">
