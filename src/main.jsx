@@ -8,10 +8,11 @@ import {
 } from "react-router-dom";
 import MainLayout from './MainLayout/MainLayout.jsx';
 import Home from './Pages/Home/Home.jsx';
-import Dashboard from './Pages/Dashboard/Dashboard.jsx';
 import AuthProvider from './Components/Provider/AuthProvider.jsx';
 import Login from './Pages/Login/Login.jsx';
 import Register from './Pages/Register/Register.jsx';
+import PrivateRoute from './Components/Routes/PrivateRoute.jsx';
+import DashboradLayout from './MainLayout/DashboradLayout.jsx';
 
 const router = createBrowserRouter([
   {
@@ -33,9 +34,18 @@ const router = createBrowserRouter([
     ]
   },
   {
-    path: 'dashboard',
-    element: <Dashboard></Dashboard>
-  }
+    path: "/dashboard",
+    element: (
+      <PrivateRoute>
+        <DashboradLayout />
+      </PrivateRoute>
+    ),
+    children: [
+      {
+
+      }
+    ],
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(

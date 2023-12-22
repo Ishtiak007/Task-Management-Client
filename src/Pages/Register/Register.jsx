@@ -1,171 +1,98 @@
 import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 import useAuth from "../../Shared/Hooks/useAuth";
-import { FaSpinner } from "react-icons/fa6";
-import SocialLogin from "../../Shared/SocialLogin/SocialLogin";
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
+import toast from "react-hot-toast";
+import img from '../../assets/image/bannerImage.jpg'
 
 
 const Register = () => {
-    const [spin, setspin] = useState(false);
-    const { createUser, updateUserProfile } = useAuth();
-    const { register, handleSubmit, reset } = useForm();
-    const location = useLocation();
-    const navigate = useNavigate();
-    const from = location?.state?.from?.pathname || "/dashboard";
+    const { createUser } = useAuth();
+    const [showPassword, setShowPassword] = useState(false)
 
-    const onSubmit = async (data) => {
-        const pass = data?.password;
-        if (pass.length < 6) {
-            Swal.fire({
-                icon: "error",
-                title: "Please Enter Atleast 6 Character",
-            });
-            return;
-        } else if (!/(?=.*[A-Z])/.test(pass)) {
-            Swal.fire({
-                icon: "error",
-                title: "Please Enter Atleast One Capital Letter",
-            });
-            return;
-        } else if (!/(?=.*[0-9])/.test(pass)) {
-            Swal.fire({
-                icon: "error",
-                title: "Please Enter Atleast One Numeric Number",
-            });
-            return;
-        } else if (!/^(?=.*[~`!@#$%^&*()--+={}[\]|\\:;"'<>,.?/_₹]).*$/.test(pass)) {
-            Swal.fire({
-                icon: "error",
-                title: "Please Enter Atleast One Special Character",
-            });
+    const handleRegister = e => {
+        e.preventDefault();
+        const email = e.target.email.value;
+        const password = e.target.password.value;
+        const terms = e.target.terms.checked;
+
+        const minNumberofChars = 6;
+        const maxNumberofChars = 16;
+        const regularExpression = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
+        if (password.length < minNumberofChars || password.length > maxNumberofChars) {
+            toast.error("password should contain atleast 6 character ");
             return;
         }
-        setspin(true);
-        createUser(data?.email, pass)
-            .then(() => {
-                console.log();
-                updateUserProfile(data?.name, data?.photo)
-                    .then(() => {
-                        Swal.fire({
-                            icon: "success",
-                            title: "User created successfully",
-                            showConfirmButton: false,
-                            timer: 1500,
-                        });
-                        reset();
-                        navigate(from, { replace: true });
-                        setspin(false);
-                    });
-            })
-            .catch((err) => {
-                Swal.fire({
-                    icon: "error",
-                    title: "Oops",
-                    text: err.message,
-                });
-                setspin(false);
-            });
-    };
-    return (
-        <>
-            <div>
-                <div className=" py-10">
-                    <div className="mx-auto max-w-xl p-6 rounded-md sm:p-10 shadow-2xl text-black  mt-5">
-                        <div className="mb-8 text-center">
-                            <h1 className="my-3 text-4xl font-bold">Register Here</h1>
-                        </div>
-                        <form
-                            onSubmit={handleSubmit(onSubmit)}
-                            className="space-y-6 ng-untouched ng-pristine ng-valid"
-                        >
-                            <div className="space-y-4">
-                                <div>
-                                    <label htmlFor="email" className="block mb-2 text-sm">
-                                        Name
-                                    </label>
-                                    <input
-                                        type="text"
-                                        {...register("name")}
-                                        required
-                                        placeholder="Enter Your Name Here"
-                                        className="w-full px-3 py-2 border rounded-md bg-gray-100 text-gray-900"
-                                        data-temp-mail-org="0"
-                                    />
-                                </div>
-                                <div>
-                                    <label htmlFor="email" className="block mb-2 text-sm">
-                                        Profile PhotoUrl
-                                    </label>
-                                    <input
-                                        type="url"
-                                        {...register("photo")}
-                                        placeholder="Enter Your Image URL"
-                                        required
-                                        className="w-full px-3 py-2 border rounded-md bg-gray-100 text-gray-900"
-                                        data-temp-mail-org="0"
-                                    />
-                                </div>
-                                <div>
-                                    <label htmlFor="email" className="block mb-2 text-sm">
-                                        Email address
-                                    </label>
-                                    <input
-                                        type="email"
-                                        {...register("email")}
-                                        placeholder="Enter Your Email Here"
-                                        required
-                                        className="w-full px-3 py-2 border rounded-md bg-gray-100 text-gray-900"
-                                        data-temp-mail-org="0"
-                                    />
-                                </div>
-                                <div>
-                                    <div className="flex justify-between">
-                                        <label htmlFor="password" className="text-sm mb-2">
-                                            Password
-                                        </label>
-                                    </div>
-                                    <input
-                                        type="password"
-                                        {...register("password")}
-                                        required
-                                        placeholder="Enter A Strong Password"
-                                        className="w-full px-3 py-2 border rounded-md bg-gray-100 text-gray-900"
-                                    />
-                                </div>
-                            </div>
+        else if (!regularExpression.test(password)) {
+            toast.error("password should contain atleast one number,one capital letter, one small letter and one special character");
+            return;
+        }
 
-                            <div>
-                                <button
-                                    type="submit"
-                                    className="w-full buttonProject2 uppercase"
-                                >
-                                    {spin ? (
-                                        <FaSpinner className=" animate-spin m-auto" />
-                                    ) : (
-                                        "Register"
-                                    )}
-                                </button>
-                            </div>
-                        </form>
-                        <div className="flex flex-col w-full border-opacity-50 pt-3">
-                            <div className="divider">OR</div>
-                            <SocialLogin></SocialLogin>
-                            <p className="px-6 text-sm text-center text-black">
-                                Already have an account?{" "}
-                                <Link
-                                    to="/signin"
-                                    className="hover:underline text-blue-500 font-bold"
-                                >
-                                    Login
-                                </Link>
-                            </p>
+        else if (!terms) {
+            toast.error("Please Accept our terms and conditions");
+            return;
+        }
+
+        createUser(email, password)
+            .then((result) => {
+                toast.success('Congratulation!!! Your Registration process Successfully done!')
+                console.log(result.user);
+                e.target.reset();
+            })
+            .catch((error) => {
+                toast.error(error.message)
+            })
+    }
+    return (
+        <div className="hero min-h-screen bg-gradient-to-r from-purple-50 to-pink-50">
+            <div className="hero-content flex-col lg:flex-row">
+
+                <div className="card  bg-base-100 lg:max-w-[500px] max-w-[280px]">
+                    <form onSubmit={handleRegister} className='lg:p-5 p-2'>
+                        <div>
+                            <p className="py-4 text-center text-xl font-semibold text-blue-900">Register page</p>
                         </div>
-                    </div>
+                        <div className="form-control">
+                            <label className="label">
+                                <span className="label-text font-mono text-lg">Name</span>
+                            </label>
+                            <input type="text" name="text" placeholder="Enter Your Name" className="input input-bordered" required />
+                        </div>
+                        <div className="form-control">
+                            <label className="label">
+                                <span className="label-text text-lg">Email</span>
+                            </label>
+                            <input type="email" name="email" placeholder="Enter Your Email" className="input input-bordered" required />
+                        </div>
+                        <div className="form-control relative">
+                            <label className="label">
+                                <span className="label-text text-lg">Password</span>
+                            </label>
+                            <input type={showPassword ? "text" : "password"} name="password" placeholder="Enter Password" className="input input-bordered" required />
+                            <span className='cursor-pointer text-xl absolute bottom-3 right-5' onClick={() => setShowPassword(!showPassword)}>
+                                {
+                                    showPassword ? <FaRegEyeSlash></FaRegEyeSlash> : <FaRegEye></FaRegEye>
+                                }
+                            </span>
+                        </div>
+                        <div className='py-3'>
+                            <input type="checkbox" name="terms" id="terms" />
+                            <label className='ml-2' htmlFor="terms">Accept our terms and conditions</label>
+                        </div>
+                        <div className="form-control mt-6">
+                            <button className="btn bg-gradient-to-r from-purple-500 to-pink-500 text-white  font-semibold">Register</button>
+                        </div>
+                        <div>
+                            <p className="text-base my-3">Already have an Account? So, Please <Link to='/signin' className="text-blue-600 underline">Login</Link></p>
+                        </div>
+                    </form>
+                </div>
+
+                <div className="mr-12 w-1/2">
+                    <img src={img} alt="" />
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 

@@ -1,35 +1,72 @@
+
+
+import { FaUser } from "react-icons/fa6";
+import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
+import useAuth from "../Hooks/useAuth";
 
 
 const Navbar = () => {
+    const { user, logOut } = useAuth();
     const navLinks = <>
         <li><Link className='font-semibold text-white' to='/'>Home</Link></li>
-        <li><Link className='font-semibold text-white' to='/'>Todo List</Link></li>
-        <li><Link className='font-semibold text-white' to='/'>Previous Todo</Link></li>
+        <li><Link className='font-semibold text-white' to='/whoCan'>User</Link></li>
+        <li><Link className='font-semibold text-white' to='/donationCampaigns'>Testimonial</Link></li>
         <li><Link className='font-semibold text-white' to='/signin'>Login</Link></li>
     </>
+    const handleLogOut = () => {
+        logOut()
+            .then(() => {
+                toast.success('Log Out successfully!');
+            })
+            .catch(() => {
+                toast.error("Something wrong. Please Try again")
+            })
+    }
     return (
-        <div className="navbar fixed z-10 bg-opacity-30 bg-black text-white">
-            <div className="navbar-start">
-                <div className="dropdown">
-                    <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
+        <>
+            <div className="navbar fixed z-10 bg-opacity-30 bg-black text-white">
+                <div className="navbar-start">
+                    <div className="dropdown">
+                        <label tabIndex={0} className="btn btn-ghost lg:hidden">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
+                        </label>
+                        <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow  bg-slate-700 rounded-box w-52">
+                            {navLinks}
+                        </ul>
                     </div>
-                    <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+                    <Link to='/' className="btn btn-ghost text-xl">Task Management</Link>
+                </div>
+                <div className="navbar-center hidden lg:flex">
+                    <ul className="menu menu-horizontal px-1">
                         {navLinks}
                     </ul>
                 </div>
-                <a className="btn btn-ghost text-xl">daisyUI</a>
+                <div className="navbar-end">
+                    <div className="dropdown dropdown-left z-10">
+                        <label tabIndex={0} className="m-5">
+                            <div className="avatar">
+                                <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                                    {
+                                        user ? <div><img className="mr-3 w-[40px] rounded-full" src={user.photoURL} alt="" /></div> : <FaUser className='mx-auto text-3xl'></FaUser>
+                                    }
+                                </div>
+                            </div>
+                        </label>
+                        <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-slate-600 rounded-box w-52">
+                            <div>
+                                <div className='my-5 text-xs text-white'>User Email : <br />{user ? <>{user.email}</> : <span className='text-red-500 font-bold'>You are not Log in</span>}</div>
+
+                                <li><Link to='/dashboard/addPet' className='font-semibold text-gray-200 my-2 mx-auto'><button className='px-3 py-1 rounded-md bg-orange-500 hover:bg-orange-600  w-full'>Dashboard</button></Link></li>
+
+                                <li><Link className='font-semibold text-gray-200 mx-auto' ><button onClick={handleLogOut} className='px-3 py-1 rounded-md bg-orange-500 hover:bg-orange-600 w-full'>Log Out</button></Link></li>
+                            </div>
+                        </ul>
+                    </div>
+
+                </div>
             </div>
-            <div className="navbar-center hidden lg:flex">
-                <ul className="menu menu-horizontal px-1">
-                    {navLinks}
-                </ul>
-            </div>
-            <div className="navbar-end">
-                <a className="btn">Button</a>
-            </div>
-        </div>
+        </>
     );
 };
 
