@@ -13,6 +13,12 @@ const WhoUse = () => {
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-10 pt-10">
                     <div className="border p-6 pr-10 rounded-xl space-y-3">
+                        <h2 className="text-xl font-bold">Students</h2>
+                        <p className="text-base">
+                            Efficiently manage time for studies, assignments, and personal commitments to enhance productivity and achieve academic and personal goals.
+                        </p>
+                    </div>
+                    <div className="border p-6 pr-10 rounded-xl space-y-3">
                         <h2 className="text-xl font-bold">Developers</h2>
                         <p className="text-base">
                             Enhance coding and project management efficiency with our specialized tools, streamlining workflows and elevating overall productivity
@@ -30,12 +36,7 @@ const WhoUse = () => {
                             Perfect time management for a seamless blend of financial analyses, client meetings, and administrative tasks to achieve balance.
                         </p>
                     </div>
-                    <div className="border p-6 pr-10 rounded-xl space-y-3">
-                        <h2 className="text-xl font-bold">Students</h2>
-                        <p className="text-base">
-                            Efficiently manage time for studies, assignments, and personal commitments to enhance productivity and achieve academic and personal goals.
-                        </p>
-                    </div>
+
                 </div>
             </div>
         </div>

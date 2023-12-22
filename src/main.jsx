@@ -24,6 +24,8 @@ import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query';
+import WhoUse from './Pages/Home/WhoUse.jsx';
+import FAQ from './Pages/FAQ/FAQ.jsx';
 
 const queryClient = new QueryClient();
 
@@ -45,6 +47,14 @@ const router = createBrowserRouter([
       {
         path: '/register',
         element: <Register></Register>
+      },
+      {
+        path: '/whoUse',
+        element: <WhoUse></WhoUse>
+      },
+      {
+        path: '/faq',
+        element: <FAQ></FAQ>
       }
     ]
   },

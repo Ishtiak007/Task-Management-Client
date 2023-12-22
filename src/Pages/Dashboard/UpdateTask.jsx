@@ -1,8 +1,8 @@
 
 import Swal from 'sweetalert2';
-import useAxiosPublic from '../../Shared/Hooks/useAxiosPublic';
 import { useForm } from 'react-hook-form';
 import { useLoaderData, useNavigate } from 'react-router-dom';
+import useAxiosPublic from '../../Shared/Hooks/useAxiosPublic';
 
 const UpdateTask = () => {
     const oldData = useLoaderData();
@@ -107,7 +107,7 @@ const UpdateTask = () => {
 
                     <button
                         type="submit"
-                        className="btn w-full text-lg bg-[#d88531] border-[#d88531] rounded  hover:bg-[#4c5161] hover:border-[#4c5161] text-white font-medium"
+                        className="w-full buttonProject2"
                     >
                         Update Task
                     </button>
