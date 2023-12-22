@@ -65,7 +65,7 @@ const router = createBrowserRouter([
         element: <UpdateTask></UpdateTask>,
         loader: ({ params }) =>
           fetch(
-            `http://localhost:5000/${params.id}`
+            `http://localhost:5000/tasks/${params.id}`
           ),
       }
     ]

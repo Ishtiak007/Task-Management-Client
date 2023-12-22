@@ -31,7 +31,7 @@ const TaskManage = () => {
     } = useQuery({
         queryKey: ["tasks", user?.email],
         queryFn: async () => {
-            const res = await axiosPublic.get(`/tasks/${user?.email}`);
+            const res = await axiosPublic.get(`/tasks?email=${user.email}`)
             const toDoTasks = res.data.filter((task) => task.status === "to-do");
             setTasks(toDoTasks);
             const ongoingtasks = res.data.filter((task) => task.status === "ongoing");
@@ -78,6 +78,7 @@ const TaskManage = () => {
                 status: updatedStatus,
             });
 
+
             // Additionally, update the state for completed tasks
             if (updatedStatus === "completed") {
                 const updatedCompletedTasks = completedtask.filter(
@@ -120,7 +121,7 @@ const TaskManage = () => {
     return (
         <div className="pb-10">
             <div className="py-7">
-                <h1 className="text-center text-2xl font-bold bg-sky-100 p-4 text-orange-300">Drag Drop Todo</h1>
+                <h1 className="text-center text-2xl font-bold bg-sky-100 p-4 text-orange-300">To-do manager</h1>
             </div>
             <DragDropContext onDragEnd={handleDragEnd}>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -149,7 +150,7 @@ const TaskManage = () => {
                                                     ref={provided.innerRef}
                                                     {...provided.draggableProps}
                                                     {...provided.dragHandleProps}
-                                                    className="bg-[#f8f8f8] capitalize space-y-2 p-4 rounded"
+                                                    className="bg-gray-200 capitalize space-y-2 p-4 rounded"
                                                 >
                                                     <h2 className="text-lg font-bold">
                                                         Title: {task?.title}
@@ -159,7 +160,7 @@ const TaskManage = () => {
                                                     <p>Deadline: {task?.deadline}</p>
                                                     <button
                                                         onClick={() => handleDelete(task?._id)}
-                                                        className="btn  bg-[#d88531] border-[#d88531] btn-sm  rounded  hover:bg-[#4c5161] hover:border-[#4c5161] text-white font-medium"
+                                                        className="btn  bg-red-400 border-red-400 btn-sm  rounded  hover:bg-[#4c5161] hover:border-[#4c5161] text-white font-medium"
                                                     >
                                                         Delete
                                                     </button>
@@ -167,7 +168,7 @@ const TaskManage = () => {
                                                         onClick={() =>
                                                             navigate(`/dashboard/updatetask/${task?._id}`)
                                                         }
-                                                        className="btn ml-2 bg-[#d88531] border-[#d88531] btn-sm  rounded  hover:bg-[#4c5161] hover:border-[#4c5161] text-white font-medium"
+                                                        className="btn ml-2 bg-red-400 border-red-400 btn-sm  rounded  hover:bg-[#4c5161] hover:border-[#4c5161] text-white font-medium"
                                                     >
                                                         Edit
                                                     </button>
