@@ -1,10 +1,10 @@
+import { useForm } from "react-hook-form";
+import useAuth from "../../Shared/Hooks/useAuth";
+import Swal from "sweetalert2";
+import useAxiosPublic from "../../Shared/Hooks/useAxiosPublic";
 
-import useAuth from '../../Shared/Hooks/useAuth';
-import { useForm } from 'react-hook-form';
-import Swal from 'sweetalert2';
 
-
-const Addtask = () => {
+const AddTodo = () => {
     const { user } = useAuth();
     const {
         register,
@@ -12,28 +12,34 @@ const Addtask = () => {
         reset,
         formState: { errors },
     } = useForm();
-    // const axiosPublic = useAxiosPublic();
+    const axiosPublic = useAxiosPublic();
 
     const onSubmit = async (data) => {
-        console.log(data.user)
+        const task = {
+            title: data?.title,
+            description: data?.description,
+            deadline: data?.deadline,
+            priority: data?.priority,
+            email: user?.email,
+            status: "to-do",
+        };
 
-        // await axiosPublic.post("/tasks", task);
+        await axiosPublic.post("/tasks", task);
         Swal.fire({
             icon: "success",
-            title: "Task has been Added",
+            title: "Todo has been Added To list",
             showConfirmButton: false,
             timer: 1500,
         });
         reset();
     };
-
     return (
         <>
             {" "}
             <div className="py-16">
-
+                <h1 className="text-3xl font-medium text-center">Add Your Task From Here</h1>
             </div>
-            <div className="pb-10">
+            <div className="pb-11 shadow-2xl">
                 <form
                     onSubmit={handleSubmit(onSubmit)}
                     className="space-y-3 w-full lg:w-2/3 mx-auto"
@@ -56,7 +62,7 @@ const Addtask = () => {
                             <label className="label">
                                 <span className="label-text">Priority</span>
                                 {errors.priority && (
-                                    <span className="text-red-600">Select a option</span>
+                                    <span className="text-red-300">Select a option</span>
                                 )}
                             </label>
                             <select
@@ -74,7 +80,7 @@ const Addtask = () => {
                             <label className="label">
                                 <span className="label-text">Deadline</span>
                                 {errors.deadline && (
-                                    <span className="text-red-600">Select a date</span>
+                                    <span className="text-red-300">Select a date</span>
                                 )}
                             </label>
                             <input
@@ -100,7 +106,7 @@ const Addtask = () => {
 
                     <button
                         type="submit"
-                        className="btn w-full text-lg bg-[#d88531] border-[#d88531] rounded  hover:bg-[#4c5161] hover:border-[#4c5161] text-white font-medium"
+                        className="w-full buttonProject2"
                     >
                         Add Task
                     </button>
@@ -110,4 +116,4 @@ const Addtask = () => {
     );
 };
 
-export default Addtask;
+export default AddTodo;

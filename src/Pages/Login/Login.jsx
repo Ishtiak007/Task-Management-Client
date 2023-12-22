@@ -11,7 +11,7 @@ import img from '../../assets/image/bannerImage.jpg'
 import googleLogo from '../../assets/logo/googleLogo.png'
 
 const Login = () => {
-    const { signInUser, googleLogIn } = useAuth();
+    const { signIn, googleSignIn } = useAuth();
     const [showPassword, setShowPassword] = useState(false)
     const location = useLocation();
     const navigate = useNavigate();
@@ -23,7 +23,7 @@ const Login = () => {
         const password = e.target.password.value;
         console.log(email, password);
 
-        signInUser(email, password)
+        signIn(email, password)
             .then((result) => {
                 toast.success('Your Login process Successfully done!');
                 console.log(result.user);
@@ -37,7 +37,7 @@ const Login = () => {
     }
 
     const handleGoogleLogIn = () => {
-        googleLogIn()
+        googleSignIn()
             .then((res) => {
                 toast.success('Google Log In successfully!');
                 console.log(res.user);
