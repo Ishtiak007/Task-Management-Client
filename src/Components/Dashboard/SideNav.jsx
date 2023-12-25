@@ -1,5 +1,4 @@
 import { useForm } from "react-hook-form";
-import { FaHome } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -7,6 +6,7 @@ import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import useAuth from "../../Shared/Hooks/useAuth";
 import useAxiosPublic from "../../Shared/Hooks/useAxiosPublic";
+import Swal from "sweetalert2";
 
 const SideNav = ({ title, btn, profile, refetch }) => {
     const [selectedDate, setSelectedDate] = useState(null);
@@ -35,16 +35,20 @@ const SideNav = ({ title, btn, profile, refetch }) => {
         data.createdAt = currentDate.toISOString();
 
         const task = { title: data.title, description: data.description, deadline: data.deadline, priority: data.priority, owner: owner, createdAt: data.createdAt, status: 'todo' };
-        // console.log("Form Data:", task);
 
         axiosPublic.post('/addTask', task)
             .then(res => {
                 if (res.data.insertedId) {
-                    toast('Task Added Successfully')
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: "Your work has been saved",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
                     reset()
                     setSelectedDate('')
                     refetch()
-                    // document.getElementById('my_modal_2').close()
                 }
             })
             .catch(err => {
@@ -53,13 +57,13 @@ const SideNav = ({ title, btn, profile, refetch }) => {
     }
 
     return (
-        <div>
-            <div className="navbar bg-base-300">
+        <div className="my-4">
+            <div className="lg:navbar  lg:my-24 space-y-3">
                 <div className="navbar-start">
 
                     <div className="dropdown dropdown-end">
-                        <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-                            <div className="w-10 rounded-full">
+                        <div tabIndex={0} role="button" className=" avatar">
+                            <div className="lg:w-36 rounded-full">
                                 <img src={profile} />
                             </div>
                         </div>
@@ -68,9 +72,9 @@ const SideNav = ({ title, btn, profile, refetch }) => {
                     <a className="hidden md:block font-semibold px-2 text-xl">{title}</a>
                 </div>
 
-                <div className="navbar-end space-x-1">
+                <div className="navbar-center space-x-1">
                     {/* Open the modal using document.getElementById('ID').showModal() method */}
-                    <button className="btn" onClick={() => document.getElementById('my_modal_2').showModal()}>{btn}</button>
+                    <button className="buttonProject3" onClick={() => document.getElementById('my_modal_2').showModal()}>{btn}</button>
                     <dialog id="my_modal_2" className="modal">
                         <div className="modal-box">
                             {/* things go here */}
@@ -137,7 +141,10 @@ const SideNav = ({ title, btn, profile, refetch }) => {
                     </dialog>
 
 
-                    <NavLink to='/' className="btn"><FaHome /></NavLink>
+                </div>
+                <div className="navbar-end space-x-1">
+                    <button className="buttonProject3 flex items-center gap-3"><NavLink to='/'>Go To Home</NavLink></button>
+
                 </div>
             </div>
             <ToastContainer />

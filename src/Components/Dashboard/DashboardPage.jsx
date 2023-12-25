@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import { FaCalendar, FaCheckSquare } from "react-icons/fa";
+import { FaCalendar, FaCheckSquare, FaEdit, FaTrash } from "react-icons/fa";
 import { FcHighPriority, FcLowPriority, FcMediumPriority } from "react-icons/fc";
 import { RiDeleteBin2Fill } from "react-icons/ri";
 import { ToastContainer, toast } from "react-toastify";
@@ -163,7 +163,7 @@ const DashboardPage = () => {
 
     return (
         <div>
-            <SideNav title={`Welcome ${user?.displayName}`} btn='Add Task' profile={user?.photoURL} refetch={refetchTasks} />
+            <SideNav title={`Welcome ${user?.displayName}`} btn='Add Your Task' profile={user?.photoURL} refetch={refetchTasks} />
             <DragDropContext onDragEnd={onDragEnd}>
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-1 px-1">
                     <Droppable droppableId="todo">
@@ -171,10 +171,10 @@ const DashboardPage = () => {
                             <div
                                 {...provided.droppableProps}
                                 ref={provided.innerRef}
-                                className="flex-1 bg-base-300 min-h-screen"
+                                className="flex-1 bg-gray-300 min-h-screen"
                             >
-                                <h1 className="text-center bg-green-300 p-3 font-bold text-base-300 rounded-t-xl">{
-                                    tasks?.length > 0 ? `${tasks?.length} To-Do` : 'To-Do'
+                                <h1 className="text-center bg-red-400 p-3 font-bold text-base-300 ">{
+                                    tasks?.length > 0 ? `Task Lists (${tasks?.length})` : 'To-Do'
                                 }</h1>
                                 <div>
                                     {tasks?.map((task, index) => (
@@ -184,15 +184,15 @@ const DashboardPage = () => {
                                                     ref={provided.innerRef}
                                                     {...provided.draggableProps}
                                                     {...provided.dragHandleProps}
-                                                    className="card card-compact m-2 bg-base-100 bg-opacity-50 shadow-xl"
+                                                    className="card card-compact m-2 bg-base-300 bg-opacity-75 shadow-2xl"
                                                 >
                                                     <div className="card-body space-y-1">
                                                         <div className="flex justify-between items-center">
                                                             <h2 className="font-bold">{task.title}</h2>
                                                             <div className='space-x-1'>
                                                                 {/* The button to open modal */}
-                                                                <label htmlFor={`my_modal_${task._id}`} className="btn btn-xs">
-                                                                    <MdOutlineUpdate />
+                                                                <label htmlFor={`my_modal_${task._id}`} className="btn text-green-400">
+                                                                    <FaEdit />
                                                                 </label>
 
 
@@ -253,9 +253,9 @@ const DashboardPage = () => {
 
                                                                 <button
                                                                     onClick={() => handleDelete(task._id)}
-                                                                    className="btn btn-xs text-red-500"
+                                                                    className="btn  text-red-600"
                                                                 >
-                                                                    <RiDeleteBin2Fill />
+                                                                    <FaTrash />
                                                                 </button>
                                                             </div>
                                                         </div>
@@ -296,10 +296,10 @@ const DashboardPage = () => {
                             <div
                                 {...provided.droppableProps}
                                 ref={provided.innerRef}
-                                className="flex-1 bg-base-300 min-h-screen"
+                                className="flex-1 bg-gray-300 min-h-screen"
                             >
-                                <h1 className="text-center bg-green-400 p-3 font-bold text-base-300 rounded-t-xl">{
-                                    ongoingTasks?.length > 0 ? `${ongoingTasks?.length} On Going` : 'On Going'
+                                <h1 className="text-center bg-orange-400 p-3 font-bold text-base-300">{
+                                    ongoingTasks?.length > 0 ? `Ongoing Tasks (${ongoingTasks?.length})` : 'On Going'
                                 }</h1>
                                 <div>
                                     {ongoingTasks?.map((task, index) => (
@@ -309,16 +309,16 @@ const DashboardPage = () => {
                                                     ref={provided.innerRef}
                                                     {...provided.draggableProps}
                                                     {...provided.dragHandleProps}
-                                                    className="card card-compact m-2 bg-base-100 bg-opacity-50 shadow-xl"
+                                                    className="card card-compact m-2 bg-orange-900 bg-opacity-75 shadow-2xl"
                                                 >
                                                     <div className="card-body space-y-1">
                                                         <div className="flex justify-between items-center">
                                                             <h2 className="font-bold">{task.title}</h2>
                                                             <button
                                                                 onClick={() => handleDelete(task._id)}
-                                                                className="btn btn-xs text-red-500"
+                                                                className="btn text-red-500"
                                                             >
-                                                                <RiDeleteBin2Fill />
+                                                                <FaTrash />
                                                             </button>
                                                         </div>
                                                         <p className="text-xs">{task.description}</p>
@@ -358,10 +358,10 @@ const DashboardPage = () => {
                             <div
                                 {...provided.droppableProps}
                                 ref={provided.innerRef}
-                                className="flex-1 bg-base-300 min-h-screen"
+                                className="flex-1 bg-gray-300 min-h-screen"
                             >
-                                <h1 className="text-center bg-green-500 p-3 font-bold text-base-300 rounded-t-xl">{
-                                    completedTasks?.length > 0 ? `${completedTasks?.length} Completed` : 'Completed'
+                                <h1 className="text-center bg-green-600 p-3 font-bold text-base-300">{
+                                    completedTasks?.length > 0 ? `Completed Tasks (${completedTasks?.length})` : 'Completed'
                                 }</h1>
                                 <div>
                                     {completedTasks?.map((task, index) => (
@@ -371,14 +371,14 @@ const DashboardPage = () => {
                                                     ref={provided.innerRef}
                                                     {...provided.draggableProps}
                                                     {...provided.dragHandleProps}
-                                                    className="card card-compact m-2 bg-base-100 bg-opacity-50 shadow-xl"
+                                                    className="card card-compact m-2 bg-green-900 bg-opacity-75 shadow-2xl"
                                                 >
                                                     <div className="card-body space-y-1">
                                                         <div className="flex justify-between items-center">
                                                             <h2 className="font-bold">{task.title}</h2>
                                                             <button
                                                                 onClick={() => handleDelete(task._id)}
-                                                                className="btn btn-xs text-green-500"
+                                                                className="btn text-green-500"
                                                             >
                                                                 <FaCheckSquare />
                                                             </button>

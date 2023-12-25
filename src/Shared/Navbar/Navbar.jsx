@@ -1,9 +1,9 @@
 
 
 import { FaUser } from "react-icons/fa6";
-import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import useAuth from "../Hooks/useAuth";
+import Swal from "sweetalert2";
 
 
 const Navbar = () => {
@@ -13,15 +13,26 @@ const Navbar = () => {
         <li><Link className='font-semibold text-white' to='/whoUse'>Who Can Use</Link></li>
         <li><Link className='font-semibold text-white' to='/faq'>FA questions</Link></li>
         <li><Link className='font-semibold text-white' to='/signin'>Login</Link></li>
-        <li><Link className='font-semibold text-white' to='/dashboardPage'>dashboardPage</Link></li>
     </>
     const handleLogOut = () => {
         logOut()
             .then(() => {
-                toast.success('Log Out successfully!');
+                Swal.fire({
+                    position: "center",
+                    icon: "success",
+                    title: "Logout Successfully",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
             })
             .catch(() => {
-                toast.error("Something wrong. Please Try again")
+                Swal.fire({
+                    position: "center",
+                    icon: "error",
+                    title: "Your work has been saved",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
             })
     }
     return (
