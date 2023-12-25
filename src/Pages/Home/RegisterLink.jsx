@@ -17,7 +17,7 @@ const RegisterLink = () => {
                         <h1 className="text-3xl font-bold">Register for exclusive deals and personalized shopping!</h1>
                         <p>Welcome to Olden Goods! a Open buying and selling platform, </p>
                         <p>Unlock exclusive deals and personalized shopping. Register now for a seamless online shopping experience for all!</p>
-                        <Link to=''><button className="buttonProject3 mt-5">Register Now</button></Link>
+                        <Link to='/register'><button className="buttonProject3 mt-5">Register Now</button></Link>
                     </div>
 
                 </div>
