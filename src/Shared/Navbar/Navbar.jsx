@@ -13,6 +13,7 @@ const Navbar = () => {
         <li><Link className='font-semibold text-white' to='/whoUse'>Who Can Use</Link></li>
         <li><Link className='font-semibold text-white' to='/faq'>FA questions</Link></li>
         <li><Link className='font-semibold text-white' to='/signin'>Login</Link></li>
+        <li><Link className='font-semibold text-white' to='/dashboardPage'>dashboardPage</Link></li>
     </>
     const handleLogOut = () => {
         logOut()

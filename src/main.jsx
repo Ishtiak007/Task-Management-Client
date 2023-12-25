@@ -14,10 +14,6 @@ import AuthProvider from './Components/Provider/AuthProvider.jsx';
 import Login from './Pages/Login/Login.jsx';
 import Register from './Pages/Register/Register.jsx';
 import MainLayout from './Components/MainLayout/MainLayout.jsx';
-import DashboardLayout from './Components/MainLayout/DashboardLayout.jsx';
-import AddTodo from './Pages/Dashboard/AddTodo.jsx';
-import TaskManage from './Pages/Dashboard/TaskManage.jsx';
-import UpdateTask from './Pages/Dashboard/UpdateTask.jsx';
 
 
 import {
@@ -26,6 +22,7 @@ import {
 } from '@tanstack/react-query';
 import WhoUse from './Pages/Home/WhoUse.jsx';
 import FAQ from './Pages/FAQ/FAQ.jsx';
+import DashboardPage from './Components/Dashboard/DashboardPage.jsx';
 
 const queryClient = new QueryClient();
 
@@ -55,28 +52,10 @@ const router = createBrowserRouter([
       {
         path: '/faq',
         element: <FAQ></FAQ>
-      }
-    ]
-  },
-  {
-    path: '/dashboard',
-    element: <DashboardLayout></DashboardLayout>,
-    children: [
-      {
-        path: 'manage',
-        element: <TaskManage></TaskManage>
       },
       {
-        path: 'addTodo',
-        element: <AddTodo></AddTodo>
-      },
-      {
-        path: 'updatetask/:id',
-        element: <UpdateTask></UpdateTask>,
-        loader: ({ params }) =>
-          fetch(
-            `http://localhost:5000/tasks/${params.id}`
-          ),
+        path: '/dashboardPage',
+        element: <DashboardPage></DashboardPage>
       }
     ]
   }
