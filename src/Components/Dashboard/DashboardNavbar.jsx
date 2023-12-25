@@ -117,12 +117,12 @@ const DashboardNavbar = ({ title, btn, profile, refetch }) => {
                                         {errors.deadline && <span className="text-error">{errors.deadline.message}</span>}
                                     </div>
                                     <div className="form-control w-full">
-                                        <select
+                                        <select defaultValue='default'
                                             {...register("priority", { required: 'Priority is required' })}
-                                            className="input input-bordered"
+                                            className="select select-bordered w-full"
                                             name="priority"
                                         >
-                                            <option value="" disabled>Select Priority</option>
+                                            <option value="default" disabled>Select Priority</option>
                                             <option value="Low">Low</option>
                                             <option value="Moderate">Moderate</option>
                                             <option value="High">High</option>
@@ -130,7 +130,9 @@ const DashboardNavbar = ({ title, btn, profile, refetch }) => {
                                         {errors.priority && <span className="text-error">{errors.priority.message}</span>}
                                     </div>
                                 </div>
-                                <input type="submit" value="Submit" className="btn w-full" />
+                                <input type="submit" value="Submit" className="buttonProject3 w-full" />
+
+                                <p className="text-center my-2">Press ESC key to exit</p>
 
                             </form>
                         </div>

@@ -18,21 +18,21 @@ const Home = () => {
     return (
         <div>
             <Navbar></Navbar>
-            <div data-aos="fade-up" data-aos-duration="1000">
+            <div data-aos="fade-up" data-aos-duration="1500">
                 <Banner></Banner>
             </div>
 
 
-            <div data-aos="fade-up" data-aos-duration="1000">
+            <div data-aos="fade-up" data-aos-duration="1500">
                 <WhoUse></WhoUse>
             </div>
 
 
-            <div data-aos="fade-up" data-aos-duration="1000">
+            <div data-aos="fade-up" data-aos-duration="1500">
                 <FAQ></FAQ>
             </div>
 
-            <div data-aos="fade-up" data-aos-duration="1000">
+            <div data-aos="fade-up" data-aos-duration="1500">
                 <RegisterLink></RegisterLink>
             </div>
         </div>
