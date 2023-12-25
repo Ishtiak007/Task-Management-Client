@@ -44,13 +44,13 @@ const Register = () => {
             })
     }
     return (
-        <div className="hero min-h-screen bg-gradient-to-r from-purple-50 to-pink-50">
+        <div className="hero min-h-screen">
             <div className="hero-content flex-col lg:flex-row">
 
-                <div className="card  bg-base-100 lg:max-w-[500px] max-w-[280px]">
+                <div className="card  border lg:max-w-[500px] max-w-[280px]">
                     <form onSubmit={handleRegister} className='lg:p-5 p-2'>
                         <div>
-                            <p className="py-4 text-center text-xl font-semibold text-blue-900">Register page</p>
+                            <p className="py-4 text-center text-xl font-semibold text-white">Register page</p>
                         </div>
                         <div className="form-control">
                             <label className="label">
@@ -89,7 +89,7 @@ const Register = () => {
                 </div>
 
                 <div className="mr-12 w-1/2">
-                    <img src={img} alt="" />
+                    <img className="rounded-lg shadow-2xl border-8  border-white " src={img} alt="" />
                 </div>
             </div>
         </div>

@@ -51,15 +51,15 @@ const Login = () => {
 
 
     return (
-        <div className="hero min-h-screen bg-gradient-to-r from-gray-100 to-cyan-50">
+        <div className="hero min-h-screen">
             <div className="hero-content flex-col lg:flex-row">
                 <div className="lg:mr-12 lg:w-1/2">
-                    <img src={img} alt="" />
+                    <img className="rounded-lg shadow-2xl border-8  border-white " src={img} alt="" />
                 </div>
-                <div className="card  bg-base-100 lg:max-w-[500px] max-w-[280px]">
+                <div className="card border lg:max-w-[500px] max-w-[280px]">
                     <form onSubmit={handleLogin} className='lg:p-5 p-2'>
                         <div>
-                            <p className="py-4 text-center text-xl font-semibold text-blue-900">Login Here</p>
+                            <p className="py-4 text-center text-xl font-semibold text-white-900">Login Here</p>
                         </div>
                         <div className="form-control">
                             <label className="label">

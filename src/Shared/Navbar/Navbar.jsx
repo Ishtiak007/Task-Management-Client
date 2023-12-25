@@ -58,20 +58,20 @@ const Navbar = () => {
                     <div className="dropdown dropdown-left z-10">
                         <label tabIndex={0} className="m-5">
                             <div className="avatar">
-                                <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                                <div className="w-10 rounded-full ring ring-secondary ring-offset-base-100 ring-offset-2">
                                     {
                                         user ? <div><img className="mr-3 w-[40px] rounded-full" src={user.photoURL} alt="" /></div> : <FaUser className='mx-auto text-3xl'></FaUser>
                                     }
                                 </div>
                             </div>
                         </label>
-                        <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-slate-600 rounded-box w-52">
+                        <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-red-400 rounded-box w-52">
                             <div>
-                                <div className='my-5 text-xs text-white'>User Email : <br />{user ? <>{user.email}</> : <span className='text-red-500 font-bold'>You are not Log in</span>}</div>
+                                <div className='my-5 text-xs text-white'>User Email : <br />{user ? <>{user.email}</> : <span className='text-black font-bold'>You are not Logged in</span>}</div>
 
-                                <li><Link to='/dashboardPage' className='font-semibold text-gray-200 my-2 mx-auto'><button className='px-3 py-1 rounded-md bg-orange-500 hover:bg-orange-600  w-full'>Dashboard</button></Link></li>
+                                <li><Link to='/dashboardPage' className='font-semibold text-gray-200 my-2 mx-auto'><button className='px-3 py-1 rounded-md bg-blue-500 hover:bg-orange-600  w-full'>Dashboard</button></Link></li>
 
-                                <li><Link className='font-semibold text-gray-200 mx-auto' ><button onClick={handleLogOut} className='px-3 py-1 rounded-md bg-orange-500 hover:bg-orange-600 w-full'>Log Out</button></Link></li>
+                                <li><Link className='font-semibold text-gray-200 mx-auto' ><button onClick={handleLogOut} className='px-3 py-1 rounded-md bg-blue-500 hover:bg-orange-600 w-full'>Log Out</button></Link></li>
                             </div>
                         </ul>
                     </div>

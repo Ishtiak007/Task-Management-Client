@@ -4,16 +4,16 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
+import Swal from "sweetalert2";
+import { FaTasks } from "react-icons/fa";
 import useAuth from "../../Shared/Hooks/useAuth";
 import useAxiosPublic from "../../Shared/Hooks/useAxiosPublic";
-import Swal from "sweetalert2";
 
-const SideNav = ({ title, btn, profile, refetch }) => {
+const DashboardNavbar = ({ title, btn, profile, refetch }) => {
     const [selectedDate, setSelectedDate] = useState(null);
     const axiosPublic = useAxiosPublic()
     const { user } = useAuth()
     const owner = user?.email
-    // console.log(owner)
 
     const {
         register,
@@ -74,10 +74,9 @@ const SideNav = ({ title, btn, profile, refetch }) => {
 
                 <div className="navbar-center space-x-1">
                     {/* Open the modal using document.getElementById('ID').showModal() method */}
-                    <button className="buttonProject3" onClick={() => document.getElementById('my_modal_2').showModal()}>{btn}</button>
+                    <button className="buttonProject3 flex items-center gap-3" onClick={() => document.getElementById('my_modal_2').showModal()}>{btn} <FaTasks></FaTasks></button>
                     <dialog id="my_modal_2" className="modal">
                         <div className="modal-box">
-                            {/* things go here */}
                             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                                 <div className="form-control w-full">
                                     <input
@@ -152,4 +151,4 @@ const SideNav = ({ title, btn, profile, refetch }) => {
     );
 };
 
-export default SideNav;
+export default DashboardNavbar;

@@ -2,14 +2,12 @@
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { FaCalendar, FaCheckSquare, FaEdit, FaTrash } from "react-icons/fa";
 import { FcHighPriority, FcLowPriority, FcMediumPriority } from "react-icons/fc";
-import { RiDeleteBin2Fill } from "react-icons/ri";
 import { ToastContainer, toast } from "react-toastify";
 import { useEffect } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { MdOutlineUpdate } from "react-icons/md";
-import SideNav from './SideNav';
 import useAuth from '../../Shared/Hooks/useAuth';
 import useAxiosPublic from '../../Shared/Hooks/useAxiosPublic';
+import DashboardNavbar from './DashboardNavbar';
 
 const DashboardPage = () => {
     const { user } = useAuth();
@@ -19,7 +17,6 @@ const DashboardPage = () => {
 
 
     useEffect(() => {
-        // Manually trigger the queries when user data is available
         if (user?.email) {
             queryClient.refetchQueries(['tasks']);
             queryClient.refetchQueries(['ongoingTasks']);
@@ -122,7 +119,6 @@ const DashboardPage = () => {
         const formData = new FormData(event.target);
         const formDataObject = {};
 
-        // Format the date field if it exists in the form data
         if (formData.has('deadline')) {
             const deadlineDate = new Date(formData.get('deadline'));
             const day = deadlineDate.getDate();
@@ -133,7 +129,6 @@ const DashboardPage = () => {
             formData.set('deadline', formattedDeadline);
         }
 
-        // Convert FormData to an object
         formData.forEach((value, key) => {
             formDataObject[key] = value;
         });
@@ -163,7 +158,7 @@ const DashboardPage = () => {
 
     return (
         <div>
-            <SideNav title={`Welcome ${user?.displayName}`} btn='Add Your Task' profile={user?.photoURL} refetch={refetchTasks} />
+            <DashboardNavbar title={`Welcome ${user?.displayName}`} btn='Add Your Task' profile={user?.photoURL} refetch={refetchTasks} />
             <DragDropContext onDragEnd={onDragEnd}>
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-1 px-1">
                     <Droppable droppableId="todo">
@@ -190,13 +185,11 @@ const DashboardPage = () => {
                                                         <div className="flex justify-between items-center">
                                                             <h2 className="font-bold">{task.title}</h2>
                                                             <div className='space-x-1'>
-                                                                {/* The button to open modal */}
                                                                 <label htmlFor={`my_modal_${task._id}`} className="btn text-green-400">
                                                                     <FaEdit />
                                                                 </label>
 
 
-                                                                {/* Put this part before </body> tag */}
                                                                 <input type="checkbox" id={`my_modal_${task._id}`} className="modal-toggle" />
 
                                                                 <div className="modal" role="dialog">
