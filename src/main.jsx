@@ -1,4 +1,4 @@
-import React from 'react'
+// import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
 
@@ -23,6 +23,7 @@ import {
 import WhoUse from './Pages/Home/WhoUse.jsx';
 import FAQ from './Pages/FAQ/FAQ.jsx';
 import DashboardPage from './Components/Dashboard/DashboardPage.jsx';
+import PrivateRoute from './Components/Routes/PrivateRoute.jsx';
 
 const queryClient = new QueryClient();
 
@@ -55,18 +56,18 @@ const router = createBrowserRouter([
       },
       {
         path: '/dashboardPage',
-        element: <DashboardPage></DashboardPage>
+        element: <PrivateRoute><DashboardPage></DashboardPage></PrivateRoute>
       }
     ]
   }
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <AuthProvider>
-      <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
-      </QueryClientProvider>
-    </AuthProvider>
-  </React.StrictMode>,
+  // <React.StrictMode>
+  <AuthProvider>
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
+  </AuthProvider>
+  // </React.StrictMode>,
 )
